@@ -2,7 +2,6 @@ import Goal from "../models/Goal";
 import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/ApiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
-
 const CreateGoal=asyncHandler(async(req,res)=>{
     const {thrust_id,title,weightage,description,uom_type,target_value,target_date}=req.body;
     const employee_id=req.userid;

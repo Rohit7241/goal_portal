@@ -14,8 +14,7 @@ const verifyjwt=asyncHandler(async(req,res,next)=>{
  if(!user){
     throw new ApiError(404,"invalid access token")
  }
- req.userid=user._id;
- req.role=user.role;
+ req.user=user;
 next()
 }
 catch(err){

@@ -2,7 +2,7 @@ import { ApiError } from "../utils/ApiError";
 import { asyncHandler } from "../utils/asyncHandler";
 
 export const verifyAdmin=asyncHandler(async(req,res,next)=>{
-    if(req.role==="Admin"){
+    if(req.user.role==="Admin"){
        return next();
     }
     else{
