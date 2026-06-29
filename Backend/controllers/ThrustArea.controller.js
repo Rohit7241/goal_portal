@@ -63,16 +63,13 @@ const updateThrustArea = asyncHandler(async (req, res) => {
         { $set: { name } },
         { new: true }
     )
-
     return res.status(200).json(
         new ApiResponse(200, updated, "Thrust area updated successfully")
     )
 })
 
 const deleteThrustArea = asyncHandler(async (req, res) => {
-
     const thrust_id = req.params.id
-
     const thrustArea = await ThrustArea.findById(thrust_id)
     if(!thrustArea){
         throw new ApiError(404, "Thrust area not found")
