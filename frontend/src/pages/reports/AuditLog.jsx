@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import Layout from "../../components/Layout"
-import { getAuditLogApi } from "../../api/reportApi"
+import Layout from "../../../components/Layout.jsx"
+import { getAuditLogApi } from "../../api/reportApi.js"
 
 const AuditLog = () => {
 

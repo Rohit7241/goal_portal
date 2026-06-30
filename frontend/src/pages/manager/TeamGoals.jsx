@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Layout from "../../components/Layout.jsx"
+import Layout from "../../../components/Layout.jsx"
 import {
     getTeamGoalsApi,
     approveGoalApi,

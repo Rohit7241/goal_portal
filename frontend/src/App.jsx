@@ -1,10 +1,10 @@
 import { BrowserRouter,Routes,Route,Navigate } from "react-router-dom";
-import { AuthProvider } from "../context/AuthContext";
-import ProtectedRoute from "../components/ProtectedRoute";
+import { AuthProvider } from "../context/AuthContext.jsx";
+import ProtectedRoute from "../components/ProtectedRoute.jsx";
 
-import Login from "./pages/auth/Login"
+import Login from "./pages/auth/Login.jsx"
 
-import EmployeeDashboard from "./pages/employee/Dashboard"
+import EmployeeDashboard from "./pages/employee/DashBoard.jsx"
 import CreateGoal from "./pages/employee/CreateGoal"
 import Checkin from "./pages/employee/Checkin"
 import MyCheckins from "./pages/employee/MyCheckins"
@@ -17,7 +17,7 @@ import TeamCheckins from "./pages/manager/TeamCheckins"
 // Admin
 import AdminDashboard from "./pages/admin/Dashboard"
 import Windows from "./pages/admin/Windows"
-import ThrustAreas from "./pages/admin/ThrustAreas"
+import ThrustAreas from "./pages/admin/ThrustArea"
 import ShareGoal from "./pages/admin/ShareGoal"
 import UnlockGoal from "./pages/admin/UnlockGoal"
 

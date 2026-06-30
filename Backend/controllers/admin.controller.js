@@ -146,12 +146,145 @@ const shareGoal=asyncHandler(async(req,res)=>{
     )
 })
 
+const createUser = asyncHandler(async (req, res) => {
+    const { name, email, password, role, department, manager_id } = req.body;
+
+    if (!name || !email || !password || !role || !department) {
+        throw new ApiError(400, "All fields are required");
+    }
+
+    if (!["employee", "manager", "admin"].includes(role)) {
+        throw new ApiError(400, "Invalid role");
+    }
+
+    if (role === "employee" && !manager_id) {
+        throw new ApiError(400, "Manager is required for employee accounts");
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        throw new ApiError(400, "User with this email already exists");
+    }
+
+    if (manager_id) {
+        const manager = await User.findById(manager_id);
+        if (!manager || manager.role !== "manager") {
+            throw new ApiError(400, "Invalid manager selected");
+        }
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        role,
+        department,
+        manager_id: role === "employee" ? manager_id : null
+    });
+
+    const userResponse = newUser.toObject();
+    delete userResponse.password;
+
+    return res.status(201).json(
+        new ApiResponse(201, userResponse, `${role} account created successfully`)
+    );
+});
+
+const getAllUsers = asyncHandler(async (req, res) => {
+    const { role } = req.query;
+
+    const filter = {};
+    if (role) filter.role = role;
+
+    const users = await User.find(filter)
+        .select("-password")
+        .populate("manager_id", "name email")
+        .sort({ createdAt: -1 });
+
+    return res.status(200).json(
+        new ApiResponse(200, users, "Users fetched successfully")
+    );
+});
+
+const getEmployees = asyncHandler(async (req, res) => {
+    const employees = await User.find({ role: "employee" })
+        .select("name email department manager_id");
+
+    return res.status(200).json(
+        new ApiResponse(200, employees, "Employees fetched successfully")
+    );
+});
+
+const getManagers = asyncHandler(async (req, res) => {
+    const managers = await User.find({ role: "manager" })
+        .select("name email department");
+
+    return res.status(200).json(
+        new ApiResponse(200, managers, "Managers fetched successfully")
+    );
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+    const user_id = req.params.id;
+    const { name, department, manager_id } = req.body;
+
+    const user = await User.findById(user_id);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+        user_id,
+        {
+            $set: {
+                ...(name && { name }),
+                ...(department && { department }),
+                ...(manager_id && { manager_id })
+            }
+        },
+        { new: true }
+    ).select("-password");
+
+    return res.status(200).json(
+        new ApiResponse(200, updatedUser, "User updated successfully")
+    );
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+    const user_id = req.params.id;
+
+    const user = await User.findById(user_id);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const goalsCount = await Goal.countDocuments({ employee_id: user_id });
+    if (goalsCount > 0) {
+        throw new ApiError(400, `Cannot delete — this user has ${goalsCount} goals associated`);
+    }
+
+    await User.findByIdAndDelete(user_id);
+
+    return res.status(200).json(
+        new ApiResponse(200, null, "User deleted successfully")
+    );
+});
+
+
 export {
     shareGoal,
     unlockGoal,
     CreateWindow,
     activateWindow,
     deactivateWindow,
-    getAllWindows
+    getAllWindows,
+    createUser,
+    getAllUsers,
+    getEmployees,
+    getManagers,
+    updateUser,
+    deleteUser
 }
 

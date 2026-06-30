@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import Layout from "../../components/Layout"
-import { shareGoalApi } from "../../api/adminApi"
-import { getAllThrustAreasApi } from "../../api/thrustAreaApi"
+import Layout from "../../../components/Layout.jsx"
+import { shareGoalApi } from "../../api/adminApi.js"
+import { getAllThrustAreasApi } from "../../api/thrustAreaApi.js"
 import axiosInstance from "../../api/axiosInstance"
 
 const ShareGoal = () => {

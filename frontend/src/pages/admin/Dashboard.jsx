@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Layout from "../../components/Layout"
+import Layout from "../../../components/Layout.jsx"
 import { getAllWindowsApi } from "../../api/adminApi"
 import { getCompletionDashboardApi } from "../../api/reportApi"
 

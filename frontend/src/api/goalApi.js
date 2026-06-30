@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosInstance from "./axiosInstanct";
+import axiosInstance from "./axiosInstance";
 
 export const createGoalApi=(data)=>axiosInstance.post("/goals/create",data)
 export const submitGoalApi=()=>axiosInstance.post("/goals/submit")

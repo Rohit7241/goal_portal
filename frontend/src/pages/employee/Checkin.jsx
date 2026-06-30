@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Layout from "../../components/Layout.jsx"
+import Layout from "../../../components/Layout.jsx"
 import { getMyGoalsApi } from "../../api/goalApi.js"
 import { getActiveWindowApi, submitCheckinApi } from "../../api/checkinApi.js"
 const Checkin = () => {

@@ -7,8 +7,8 @@ const Login=()=>{
     const navigate=useNavigate()
     const {login}=useAuth()
     const [formData,setFormData]=useState({
-        email="",
-        password=""
+        email:"",
+        password:""
     })
     const [error,setError]=useState("")
     const [loading,setloading]=useState(false)
@@ -39,7 +39,7 @@ const Login=()=>{
             redirectByRole(response.data.user.role)
         }
         catch(err){
-            setError(err.reponse?.data?.message||"Login Failed. Try again")
+            setError(err.response?.data?.message||"Login Failed. Try again")
         }
         finally{
             setloading(false)
@@ -61,7 +61,7 @@ const Login=()=>{
                         {error}
                     </div>
                 )}
-                <form className="space-y-5" onSubmit={handleSubmit}>
+                <form className="space-y-5" onSubmit={handleSubmit} autoComplete="off">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Email
@@ -72,6 +72,7 @@ const Login=()=>{
                         onChange={handleChange}
                         placeholder="you@company.com"
                         className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        autoComplete="off"
                         />
                     </div>
                     <div>
@@ -84,6 +85,7 @@ const Login=()=>{
                             onChange={handleChange}
                             placeholder="......."
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            autoComplete="off"
                         />
                     </div>
                     <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
