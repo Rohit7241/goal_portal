@@ -1,6 +1,5 @@
-import { ApiError } from "../utils/ApiError";
-import { asyncHandler } from "../utils/asyncHandler";
-
+import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 export const verifyManager=asyncHandler(async(req,res,next)=>{
     if(req.user.role==="Manager"){
         return next();

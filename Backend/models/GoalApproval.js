@@ -1,5 +1,4 @@
-import { Model,Schema } from "mongoose";
-
+import mongoose, { Model,Mongoose,Schema } from "mongoose";
 const GoalAppSchema=new Schema({
     goal_id:{
         type:Schema.Types.ObjectId,

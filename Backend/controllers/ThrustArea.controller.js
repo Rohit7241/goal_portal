@@ -1,7 +1,7 @@
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import ThrustArea from "../models/ThrustArea.js"
-import { ApiResponse } from "../utils/ApiResponse";
+import { ApiResponse } from "../utils/ApiResponse.js";
 const createThrustArea=asyncHandler(async(req,res)=>{
     const {name}=req.body
     const created_by=req.user._id

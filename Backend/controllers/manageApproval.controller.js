@@ -1,9 +1,9 @@
-import Goal from "../models/Goal";
-import User from "../models/User.model";
+import Goal from "../models/Goal.js";
+import User from "../models/User.model.js";
 import GoalApproval from "../models/GoalApproval.js"
-import { ApiError } from "../utils/apiError";
-import { ApiResponse } from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
+import { ApiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const getTeamGoals=asyncHandler(async(req,res)=>{
     const manager_id=req.user._id;

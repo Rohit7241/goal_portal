@@ -1,5 +1,4 @@
-import { Model,Schema } from "mongoose";
-
+import mongoose, { Model,Mongoose,Schema } from "mongoose";
 const ThrustSchema=new Schema({
    name:{
     type:String,

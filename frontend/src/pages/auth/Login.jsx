@@ -19,9 +19,9 @@ const Login=()=>{
     }
 
     const redirectByRole=(role)=>{
-        if(role==="employee")navigate("/employee/dashboard")
-            else if(role==="manager")navigate("/manager/dashboard")
-        else if (role==="admin")navigate("/admin/dashboard")
+        if(role==="Employee")navigate("/employee/dashboard")
+            else if(role==="Manager")navigate("/manager/dashboard")
+        else if (role==="Admin")navigate("/admin/dashboard")
     }
     const handleSubmit=async(e)=>{
         e.preventDefault()
@@ -92,6 +92,12 @@ const Login=()=>{
                         {loading?"Signing in...":"Sign in"}
                     </button>
                 </form>
+                <p className="text-center text-sm text-gray-500 mt-6">
+                        Don't have an account?{" "}
+                        <a href="/register" className="text-blue-600 hover:underline font-medium">
+                            Register
+                        </a>
+                    </p>
             </div>
         </div>
     )

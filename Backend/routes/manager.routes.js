@@ -1,11 +1,11 @@
 import { Router } from "express";
 import multer from "multer";
-import { verifyjwt } from "../middlewares/jwt.middleware";
-import { verifyManager } from "../middlewares/isManager.middleware";
-import { approveGoal, editGoalBeforeApproval, getTeamGoals, returnGoal } from "../controllers/manageApproval.controller";
+import { verifyjwt } from "../middlewares/jwt.middleware.js";
+import { verifyManager } from "../middlewares/isManager.middleware.js";
+import { approveGoal, editGoalBeforeApproval, getTeamGoals, returnGoal } from "../controllers/manageApproval.controller.js";
 
 const router=Router()
-const formparser=multer.none()
+const formparser=multer().none()
 
 router.route("/team-goals").get(verifyjwt,verifyManager,getTeamGoals)
 router.route("/goals/:id/approve").put(verifyjwt,verifyManager,approveGoal)

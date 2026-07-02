@@ -1,4 +1,4 @@
-import { Model,Schema } from "mongoose";
+import mongoose, { Model,Mongoose,Schema } from "mongoose";
 
 const CheckinWindowSchema=new Schema({
     quarter:{
@@ -23,4 +23,4 @@ const CheckinWindowSchema=new Schema({
 
 const CheckinWindow=mongoose.model("CheckinWindow",CheckinWindowSchema);
 
-export default CheckinWindow;
+export default CheckinWindow

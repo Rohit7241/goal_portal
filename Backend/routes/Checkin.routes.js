@@ -1,13 +1,13 @@
 import {Router} from "express"
 import multer from "multer"
-import { verifyjwt } from "../middlewares/jwt.middleware"
-import {verifyManagerOrAdmin} from "../middlewares/isAdminOrManager.middleware"
-import {verifyManager} from "../middlewares/isManager.middleware"
-import {verifyEmployee} from "../middlewares/isEmployee.middleware"
-import { getActiveWindow, getMyCheckins, getTeamCheckins, submitCheckin } from "../controllers/checkin.controller"
+import { verifyjwt } from "../middlewares/jwt.middleware.js"
+import {verifyManagerOrAdmin} from "../middlewares/isAdminOrManager.middleware.js"
+import {verifyManager} from "../middlewares/isManager.middleware.js"
+import {verifyEmployee} from "../middlewares/isEmployee.middleware.js"
+import { getActiveWindow, getMyCheckins, getTeamCheckins, submitCheckin } from "../controllers/checkin.controller.js"
 
 const router=Router()
-const formparser=multer.none()
+const formparser=multer().none()
 
 router.route("/active-window").get(verifyjwt,getActiveWindow)
 router.route("/submit").post(verifyjwt,verifyEmployee,submitCheckin)

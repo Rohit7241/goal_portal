@@ -1,7 +1,7 @@
-import Goal from "../models/Goal";
-import { ApiError } from "../utils/apiError";
-import { ApiResponse } from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
+import Goal from "../models/Goal.js";
+import { ApiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 const CreateGoal=asyncHandler(async(req,res)=>{
     const {thrust_id,title,weightage,description,uom_type,target_value,target_date}=req.body;
     const employee_id=req.userid;
@@ -25,7 +25,7 @@ const CreateGoal=asyncHandler(async(req,res)=>{
         }
     }
     const createdgoal=await Goal.create(
-        {employee_id,thrust_id,title,description,uom_type,target_value,target_date,weightage,status="draft"}
+        {employee_id,thrust_id,title,description,uom_type,target_value,target_date,weightage,status:"draft"}
     )
     if(!createdgoal){
         throw new ApiError(500,"Unable to create Goal");

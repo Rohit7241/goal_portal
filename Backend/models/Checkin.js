@@ -1,4 +1,4 @@
-import { Model,Schema } from "mongoose";
+import mongoose, { Model,Mongoose,Schema } from "mongoose";
 
 const CheckinSchema=new Schema({
     goal_id:{

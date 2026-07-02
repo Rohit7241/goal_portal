@@ -20,7 +20,7 @@ import Windows from "./pages/admin/Windows"
 import ThrustAreas from "./pages/admin/ThrustArea"
 import ShareGoal from "./pages/admin/ShareGoal"
 import UnlockGoal from "./pages/admin/UnlockGoal"
-
+import Register from "./pages/auth/Register.jsx";
 // Reports
 import AchievementReport from "./pages/reports/AchievementReport"
 import CompletionDashboard from "./pages/reports/CompletionDashboard"
@@ -39,6 +39,7 @@ function App(){
                 <EmployeeDashboard/>
               </ProtectedRoute>
             }/>
+            <Route path="register" element={<Register/>}/>
             <Route path="/employee/create-goal" element={
               <ProtectedRoute allowedRoles={["employee"]}>
                 <CreateGoal/>

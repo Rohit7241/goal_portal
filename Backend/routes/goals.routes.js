@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { verifyjwt } from "../middlewares/jwt.middleware";
+import { verifyjwt } from "../middlewares/jwt.middleware.js";
 import multer from "multer";
-import { CreateGoal, editGoal, getMyGoals, getSingleGoal, SubmitGoals } from "../controllers/goal.controller";
+import { CreateGoal, editGoal, getMyGoals, getSingleGoal, SubmitGoals } from "../controllers/goal.controller.js";
 
-const formparser=multer.none();
+const formparser=multer().none()
 const router=Router()
 
 router.route("/CreateGoals").post(formparser,CreateGoal)

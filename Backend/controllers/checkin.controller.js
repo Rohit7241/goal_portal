@@ -1,5 +1,5 @@
 import CheckinWindow from "../models/CheckinWindow.js";
-import { ApiResponse } from "../utils/ApiResponse";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const getActiveWindow=asyncHandler(async(req,res)=>{

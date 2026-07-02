@@ -41,7 +41,7 @@ const register=asyncHandler(async(req,res)=>{
         throw new ApiError(500,"internal server error");
     }
     return res.status(200).json(
-        new ApiResponse(200,"OK","user account created")
+        new ApiResponse(200,{},"user account created")
     )
 })
 const login=asyncHandler(async(req,res)=>{
