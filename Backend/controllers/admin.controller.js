@@ -3,6 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import {CheckinWindow} from "../models/CheckinWindow.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 import Goal from "../models/Goal.js";
+import bcrypt from "bcrypt.js"
 const CreateWindow=asyncHandler(async(req,res)=>{
     const {quarter,year,opens_on,closes_on}=req.body;
     if(!quarter||!year||!opens_on||!closes_on){

@@ -84,7 +84,6 @@ const getMyGoals=asyncHandler(async(req,res)=>{
             goals
         })
 })
-
 const editGoal=asyncHandler(async(req,res)=>{
     const goal_id=req.params.id
     const goal=await Goal.find({_id:goal_id})

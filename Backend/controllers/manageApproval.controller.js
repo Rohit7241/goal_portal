@@ -23,7 +23,6 @@ const getTeamGoals=asyncHandler(async(req,res)=>{
         new ApiResponse(200,goals,"Team Goals fetched!")
     )
 })
-
 const approveGoal= asyncHandler(async(req,res)=>{
     const goal_id=req.params.id
     const manager_id=req.user._id
@@ -79,7 +78,6 @@ const returnGoal=asyncHandler(async(req,res)=>{
         new ApiResponse(200,goal,"Goal returned for rework")
     )
 })
-
 const editGoalBeforeApproval=asyncHandler(async(req,res)=>{
     const goal_id=req.params._id
     const manager_id=req.user._id
