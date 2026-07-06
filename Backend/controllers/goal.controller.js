@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 const CreateGoal=asyncHandler(async(req,res)=>{
     const {thrust_id,title,weightage,description,uom_type,target_value,target_date}=req.body;
-    const employee_id=req.userid;
+    const employee_id=req.user._id;
     const existingGoal=await Goal.countDocuments({
         employee_id
     })
@@ -35,7 +35,7 @@ const CreateGoal=asyncHandler(async(req,res)=>{
     )
 })
 const SubmitGoals=asyncHandler(async(req,res)=>{
-    const employee_id=req.userid;
+    const employee_id=req.user._id;
     const draftGoals=await Goal.find({employee_id,status:"draft"});
     if(draftGoals.length==0){
         throw new ApiError(400,"No draft goals to submit");
@@ -62,7 +62,7 @@ const SubmitGoals=asyncHandler(async(req,res)=>{
     )
 })
 const getMyGoals=asyncHandler(async(req,res)=>{
-    const employee_id=req.userid;
+    const employee_id=req.user._id;
     const {status}=req.query;
     const filter={employee_id}
     if(status){
@@ -86,8 +86,8 @@ const getMyGoals=asyncHandler(async(req,res)=>{
 })
 const editGoal=asyncHandler(async(req,res)=>{
     const goal_id=req.params.id
-    const goal=await Goal.find({_id:goal_id})
-    if(goal.employee_id.toString()!==req.userid.toString()){
+    const goal = await Goal.findById(goal_id);
+    if(goal.employee_id.toString()!==req.user._id.toString()){
         throw new ApiError(400,"Not authorized")
     }
     if(goal.status!="draft"){

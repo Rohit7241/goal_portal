@@ -61,8 +61,8 @@ const login=asyncHandler(async(req,res)=>{
      const loggedinuser=await User.findById(user._id).select("-refreshToken")
         const options={
             httpOnly:true,
-            secure:process.env.NODE_ENV === "production",
-            sameSite:"None",
+            secure:false,
+            sameSite:"Lax"
         }
         return res.status(200)
         .cookie("AccessToken",Accesstoken,options)

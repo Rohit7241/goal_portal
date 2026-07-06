@@ -2,11 +2,11 @@ import mongoose, { Model,Mongoose,Schema } from "mongoose";
 const ThrustSchema=new Schema({
    name:{
     type:String,
-    created_by:{
+   },
+   created_by:{
         type:Schema.Types.ObjectId,
         ref:"User",
     }
-   }
 }
 ,{timestamps:true})
 

@@ -14,8 +14,10 @@ const Dashboard = () => {
         try {
             const status = filter === "all" ? "" : filter
             const res = await getMyGoalsApi(status)
-            setGoals(res.data.data.goals || [])
+            console.log(res.data.goals);
+            setGoals(res.data.goals || [])
         } catch (err) {
+            console.log(err)
             setError("Failed to fetch goals")
         } finally {
             setLoading(false)
@@ -40,8 +42,6 @@ const Dashboard = () => {
     return (
         <Layout>
             <div className="max-w-5xl mx-auto">
-
-                {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <h1 className="text-2xl font-bold text-gray-800">
@@ -73,8 +73,6 @@ const Dashboard = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Weightage Warning */}
                 {goals.length > 0 && totalWeightage !== 100 && (
                     <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg text-sm mb-4">
                         Total weightage is {totalWeightage}%. It must equal 100% before submitting.

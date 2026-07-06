@@ -1,15 +1,23 @@
 import { Router } from "express";
 import { verifyjwt } from "../middlewares/jwt.middleware.js";
 import multer from "multer";
-import { CreateGoal, editGoal, getMyGoals, getSingleGoal, SubmitGoals } from "../controllers/goal.controller.js";
+import {
+    CreateGoal,
+    editGoal,
+    getMyGoals,
+    getSingleGoal,
+    SubmitGoals
+} from "../controllers/goal.controller.js";
 
-const formparser=multer().none()
-const router=Router()
+const formparser = multer().none();
+const router = Router();
 
-router.route("/CreateGoals").post(formparser,CreateGoal)
-router.route("/EditGoal").post(formparser,editGoal)
-router.route("/GetMyGoals").post(formparser,getMyGoals)
-router.route("/getSingleGoal").post(formparser,getSingleGoal)
-router.route("/SubmitGoal").post(formparser,SubmitGoals)
+router.use(verifyjwt);
 
-export default router
+router.post("/create", formparser, CreateGoal);
+router.put("/:id", formparser, editGoal);
+router.get("/my-goals", getMyGoals);
+router.get("/:id", getSingleGoal);
+router.post("/submit", SubmitGoals);
+
+export default router;

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
-
+import Layout from "../../../components/Layout.jsx"
+import {getAllThrustAreasApi} from "../../api/thrustAreaApi.js";
+import {getSingleGoalApi,createGoalApi,editGoalApi} from "../../api/goalApi.js";
 const CreateGoal=()=>{
     const navigate=useNavigate()
     const [searchParams]=useSearchParams()
     const editId=searchParams.get("edit")
-    const idEditMode=! !editId
-
+    const isEditMode=editId
     const [thrustAreas,setThrustAreas]=useState([])
     const [loading,setloading]=useState(false)
     const [error,seterror]=useState("")
@@ -69,18 +70,18 @@ const CreateGoal=()=>{
         seterror("")
         setsuccess("")
 
-        if(!formData.thrust_id||!formData.title||!formData.uom_type||!formData.weightage){
+        if((!formData.thrust_id)||(!formData.title)||(!formData.uom_type)||(!formData.weightage)){
             seterror("Please fill all required fields")
             setloading(false)
             return
         }
 
-        if(!formData.uom_type=="timeline"&&!formData.target_date){
+        if((!formData.uom_type=="timeline")&&(!formData.target_date)){
             seterror("Target date is required for timeline goals")
             setloading(false)
             return
         }
-        if(formData.uom_type !== "timeline" && !formData.target_value){
+        if((formData.uom_type !== "timeline") &&( !formData.target_value)){
             seterror("Target value is required")
             setloading(false)
             return
@@ -112,9 +113,9 @@ const CreateGoal=()=>{
             <div className="max-w-2xl mx-auto">
                 {/* Header */}
                 <div className="mb-6">
-                    <h1 className="text-2xl font-bold text-gray-800">
+                    <h2 className="text-sm text-gray-800">
                         {isEditMode ? "Edit Goal" : "Create New Goal"}
-                    </h1>
+                    </h2>
                     <p className="text-gray-500 text-sm mt-1">
                         {isEditMode ? "Update your goal details" : "Add a new goal to your goal sheet"}
                     </p>

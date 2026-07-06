@@ -183,8 +183,6 @@ const Register = () => {
                             <option value="Admin">Admin</option>
                         </select>
                     </div>
-
-                    {/* Manager Dropdown — only for Employee */}
                     {formData.role === "Employee" && (
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">

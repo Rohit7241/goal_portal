@@ -4,11 +4,9 @@ import { getAllWindowsApi } from "../../api/adminApi"
 import { getCompletionDashboardApi } from "../../api/reportApi"
 
 const AdminDashboard = () => {
-
     const [activeWindow, setActiveWindow] = useState(null)
     const [completionStats, setCompletionStats] = useState({ total: 0, completed: 0 })
     const [loading, setLoading] = useState(true)
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -37,7 +35,7 @@ const AdminDashboard = () => {
     const quickLinks = [
         { label: "Check-in Windows", desc: "Open/close quarterly windows", path: "/admin/windows" },
         { label: "Thrust Areas", desc: "Manage company priorities", path: "/admin/thrust-areas" },
-        { label: "Share Goal", desc: "Push KPI to multiple employees", path: "/admin/share-goal" },
+        { label: "Share Goal", desc: "Push to multiple employees", path: "/admin/share-goal" },
         { label: "Unlock Goal", desc: "Unlock a locked goal", path: "/admin/unlock-goal" },
         { label: "Achievement Report", desc: "Planned vs actual report", path: "/reports/achievement" },
         { label: "Audit Log", desc: "View all goal changes", path: "/reports/audit-log" }
@@ -74,7 +72,6 @@ const AdminDashboard = () => {
                                 }
                             </p>
                         </div>
-
                         <div className="bg-blue-50 rounded-xl p-5">
                             <p className="text-2xl font-bold text-blue-700">
                                 {completionStats.total}

@@ -1,6 +1,7 @@
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import CheckinWindow from "../models/CheckinWindow.js"
+import User from "../models/User.model.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 import Goal from "../models/Goal.js";
 const CreateWindow=asyncHandler(async(req,res)=>{
@@ -8,15 +9,15 @@ const CreateWindow=asyncHandler(async(req,res)=>{
     if(!quarter||!year||!opens_on||!closes_on){
         throw new ApiError(400,"All fields needed");
     }
-    const existingWindow=await CheckinWindow.findOne({quater,year})
+    const existingWindow=await CheckinWindow.findOne({quarter,year})
     if(existingWindow){
-        throw new ApiError(400,`Window for ${quater} ${year} already exists`);
+        throw new ApiError(400,`Window for ${quarter} ${year} already exists`);
     }
     if(new Date(closes_on)<=new Date(opens_on)){
         throw new ApiError(400,"closing date must be after opening date")
     }
     const window=await CheckinWindow.create({
-        quater,
+        quarter,
         year,
         opens_on,
         closes_on,
@@ -30,8 +31,8 @@ const CreateWindow=asyncHandler(async(req,res)=>{
 const activateWindow=asyncHandler(async(req,res)=>{
     const window_id=req.params.id;
     const activeWindow=await CheckinWindow.findOne({is_active:true});
-    if(activateWindow){
-        throw new ApiError(400,`${activateWindow.quarter} ${activateWindow.year} window is already Active`);
+    if(activeWindow){
+        throw new ApiError(400,`${activeWindow.quarter} ${activeWindow.year} window is already Active`);
     }
     const window=await CheckinWindow.findByIdAndUpdate(
         window_id,
@@ -61,7 +62,7 @@ const deactivateWindow=asyncHandler(async(req,res)=>{
     )
 })
 const getAllWindows=asyncHandler(async(req,res)=>{
-    const windows=await CheckinWindow.find().sort({year:-1,quater:1})
+    const windows=await CheckinWindow.find().sort({year:-1,quarter:1})
     if(windows.length==0){
         return res.status(200).json(
             new ApiResponse(200,[],"No windows created yet")
