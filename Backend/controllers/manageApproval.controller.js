@@ -4,7 +4,7 @@ import GoalApproval from "../models/GoalApproval.js"
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-
+import AuditLog from "../models/AuditLog.js"
 const getTeamGoals=asyncHandler(async(req,res)=>{
     const manager_id=req.user._id;
     const employees=await User.find({manager_id})
@@ -14,7 +14,7 @@ const getTeamGoals=asyncHandler(async(req,res)=>{
     const employeeIds=employees.map(emp=>emp._id)
     const goals=await Goal.find({
         employee_id:{$in:employeeIds},
-        status:"submitted"
+        status:"Submitted"
     })
     .populate("employee_id","name email department")
     .populate("thrust_id","name")
@@ -36,8 +36,8 @@ const approveGoal= asyncHandler(async(req,res)=>{
         throw new ApiError(403,"Not authorized to approve this Goal")
     }
 
-    if(goal.status!=="submitted"){
-        throw new ApiError(400,"Only submitted goals can be approved")
+    if(goal.status!=="Submitted"){
+        throw new ApiError(400,"Only Submitted goals can be approved")
     }
     goal.status="locked"
     await goal.save()
@@ -63,8 +63,8 @@ const returnGoal=asyncHandler(async(req,res)=>{
     if(goal.employee_id.manager_id.toString()!==manager_id.toString()){
         throw new ApiError(403,"Not authorized")
     }
-    if(goal.status!=="submitted"){
-        throw new ApiError(400,"Only submitted goals can be returned")
+    if(goal.status!=="Submitted"){
+        throw new ApiError(400,"Only Submitted goals can be returned")
     }
     goal.status="draft"
     await goal.save()
@@ -79,7 +79,7 @@ const returnGoal=asyncHandler(async(req,res)=>{
     )
 })
 const editGoalBeforeApproval=asyncHandler(async(req,res)=>{
-    const goal_id=req.params._id
+    const goal_id=req.params.id
     const manager_id=req.user._id
     const {target_value,weightage}=req.body
     const goal=await Goal.findById(goal_id)
@@ -90,7 +90,7 @@ const editGoalBeforeApproval=asyncHandler(async(req,res)=>{
     if(goal.employee_id.manager_id.toString()!==manager_id.toString()){
         throw new ApiError(403,"Not authorized")
     }
-    if(goal.status!=="submitted"){
+    if(goal.status!=="Submitted"){
         throw new ApiError(400,"Can only edit Submitted Goals")
     }
     if(weightage&&weightage<10){

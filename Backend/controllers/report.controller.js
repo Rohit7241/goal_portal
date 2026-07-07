@@ -7,7 +7,7 @@ import User from "../models/User.model.js"
 import Goal from "../models/Goal.js"
 const getAchievementReport=asyncHandler(async(req,res)=>{
     const {quarter,year,department}=req.query
-    const employeeFilter={role:"employee"}
+    const employeeFilter={role:"Employee"}
     if(department){
         employeeFilter.department=department
     }
@@ -63,12 +63,12 @@ const getCompletionDashboard=asyncHandler(async(req,res)=>{
     const {year}=req.query
     const targetYear=parseInt(year)||new Date().getFullYear()
     const employees=await User.find({
-        role:"employee"
+        role:"Employee"
     })
     .select("name email department")
     const checkins=await Checkin.find({year: targetYear})
     .select("employee_id quater year status")
-
+    // console.log(employees)
     const quarter=["Q1","Q2","Q3","Q4"]
 
     const dashboard=employees.map(employee=>{
@@ -76,10 +76,11 @@ const getCompletionDashboard=asyncHandler(async(req,res)=>{
             c=>c.employee_id.toString()===employee._id.toString()
         )
         const quarterStatus={}
-        quarters.forEach(q => {
+        quarter.forEach(q => {
             const found=employeeCheckins.find(c=>c.quarter===q)
             quarterStatus[q]=found?"completed":"pending"
         })
+        // console.log(quarterStatus);
         return{
             employee:{
                 name:employee.name,

@@ -14,11 +14,10 @@ const AdminDashboard = () => {
                 const windows = windowsRes.data.data || []
                 const active = windows.find(w => w.is_active)
                 setActiveWindow(active || null)
-
                 const completionRes = await getCompletionDashboardApi(new Date().getFullYear())
+                console.log(completionRes)
                 const dashboard = completionRes.data.data || []
                 const totalCompleted = dashboard.reduce((sum, d) => sum + d.totalCompleted, 0)
-
                 setCompletionStats({
                     total: dashboard.length,
                     completed: totalCompleted

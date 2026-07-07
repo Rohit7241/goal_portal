@@ -7,6 +7,6 @@ export const getMyGoalsApi = (status) =>
     axiosInstance.get("/goals/my-goals", {
         params: status ? { status } : {},
     });
-export const editGoalApi=(id,data)=>axiosInstance.put(`/goal/${id}`,data)
+export const editGoalApi=(id,data)=>axiosInstance.put(`/goals/${id}`,data)
 export const getSingleGoalApi=(id)=>axiosInstance.get(`/goals/${id}`)
 

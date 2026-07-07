@@ -1,6 +1,8 @@
 import CheckinWindow from "../models/CheckinWindow.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import User from "../models/User.model.js";
+import Checkin from "../models/Checkin.js"
 
 const getActiveWindow=asyncHandler(async(req,res)=>{
     const today=new Date()
@@ -129,12 +131,10 @@ const getTeamCheckins = asyncHandler(async (req, res) => {
 
     const employeeIds = employees.map(emp => emp._id)
 
-    // Step 2 — build filter
     const filter = { employee_id: { $in: employeeIds } }
     if(quarter) filter.quarter = quarter
     if(year) filter.year = year
 
-    // Step 3 — fetch checkins
     const checkins = await Checkin.find(filter)
         .populate("employee_id", "name email department")
         .populate("goal_id", "title uom_type target_value weightage")

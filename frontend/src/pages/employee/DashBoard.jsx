@@ -198,10 +198,11 @@ const SubmitGoalsButton = ({ onSuccess }) => {
         setLoading(true)
         setError("")
         try {
-            const { submitGoalsApi } = await import("../../api/goalApi")
-            await submitGoalsApi()
+            const { submitGoalApi } = await import("../../api/goalApi")
+            await submitGoalApi()
             onSuccess()
         } catch (err) {
+            console.log(err)
             setError(err.response?.data?.message || "Failed to submit goals")
         } finally {
             setLoading(false)

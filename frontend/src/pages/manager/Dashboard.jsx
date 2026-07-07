@@ -17,6 +17,7 @@ const ManagerDashboard = () => {
         const fetchStats = async () => {
             try {
                 const goalsRes = await getTeamGoalsApi()
+                console.log(goalsRes)
                 const goals = goalsRes.data.data || []
 
                 const checkinsRes = await getTeamCheckinsApi("", "")
@@ -76,7 +77,7 @@ const ManagerDashboard = () => {
                     
                        <a href="/manager/team-goals"
                         className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition"
-                    >
+                        >
                         <h3 className="font-semibold text-gray-800 mb-1">
                             Review Team Goals
                         </h3>

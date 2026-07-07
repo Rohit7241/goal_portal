@@ -58,7 +58,7 @@ function App(){
             }/>
             <Route path="/manager/team-goals" element={
               <ProtectedRoute allowedRoles={["manager"]}>
-                <CreateGoal/>
+                <TeamGoals/>
               </ProtectedRoute>
             }/>
             <Route path="/manager/team-checkins" element={

@@ -17,6 +17,7 @@ const AchievementReport = () => {
         setLoading(true)
         try {
             const res = await getAchievementReportApi(filter.quarter, filter.year)
+            console.log(res)
             setReport(res.data.data || [])
         } catch {
             setError("Failed to fetch report")
